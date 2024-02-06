@@ -7,7 +7,6 @@ import {
   AZURE_OAUTH_ENABLED,
   GITHUB_OAUTH_ENABLED,
   GOOGLE_OAUTH_ENABLED,
-  PASSWORD_RESET_DISABLED,
   SIGNUP_ENABLED,
 } from "@formbricks/lib/constants";
 
@@ -26,7 +25,6 @@ export default function SignInPage() {
         <FormWrapper>
           <SigninForm
             publicSignUpEnabled={SIGNUP_ENABLED}
-            passwordResetEnabled={!PASSWORD_RESET_DISABLED}
             googleOAuthEnabled={GOOGLE_OAUTH_ENABLED}
             githubOAuthEnabled={GITHUB_OAUTH_ENABLED}
             azureOAuthEnabled={AZURE_OAUTH_ENABLED}
