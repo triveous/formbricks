@@ -37,7 +37,7 @@ export const SigninForm = ({
   azureOAuthEnabled: boolean;
 }) => {
   const searchParams = useSearchParams();
-  
+
   const formMethods = useForm<TSigninFormState>();
 
   const onSubmit: SubmitHandler<TSigninFormState> = async () => {
@@ -104,7 +104,7 @@ export const SigninForm = ({
           <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-2">
             {TwoFactorComponent}
 
-            {false && (
+            {/* {false && (
               <div className={cn(totpLogin && "hidden")}>
                 <div className="mb-2 transition-all duration-500 ease-in-out">
                   <label htmlFor="email" className="sr-only">
@@ -158,10 +158,10 @@ export const SigninForm = ({
                   </div>
                 )}
               </div>
-            )}
+            )} */}
             <Button
               onClick={() => {
-              if (formRef.current) {
+                if (formRef.current) {
                   formRef.current.requestSubmit();
                 }
               }}
