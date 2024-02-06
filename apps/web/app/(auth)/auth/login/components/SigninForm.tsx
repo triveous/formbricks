@@ -57,7 +57,6 @@ export const SigninForm = ({
   };
 
   const [loggingIn, setLoggingIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [totpLogin, setTotpLogin] = useState(false);
   const [totpBackup, setTotpBackup] = useState(false);
@@ -105,7 +104,7 @@ export const SigninForm = ({
           <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-2">
             {TwoFactorComponent}
 
-            {showLogin && (
+            {false && (
               <div className={cn(totpLogin && "hidden")}>
                 <div className="mb-2 transition-all duration-500 ease-in-out">
                   <label htmlFor="email" className="sr-only">
