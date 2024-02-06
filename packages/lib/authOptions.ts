@@ -135,7 +135,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token }) {
+    async jwt({ token }: any) {
       const existingUser = await getUserByEmail(token?.email!);
 
       if (!existingUser) {
@@ -147,7 +147,7 @@ export const authOptions = {
         profile: existingUser || null,
       };
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       session.user.id = token?.id;
 
       session.user = token.profile;
@@ -198,7 +198,7 @@ export const authOptions = {
       return true;
     },
   },
-  secret: env.APP_CLIENT_SECRET ?? "DEFAULT_CLIENT_SECRET",
+  secret: "DEFAULT_CLIENT_SECRET",
   pages: {
     signIn: "/auth/login",
     signOut: "/auth/logout",
