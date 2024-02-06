@@ -1,9 +1,9 @@
-
 import AzureAD from "next-auth/providers/azure-ad";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import KeycloakProvider from "next-auth/providers/keycloak";
+
 import { prisma } from "@formbricks/database";
 
 import { verifyPassword } from "./auth/util";
@@ -129,9 +129,9 @@ export const authOptions = {
       tenantId: env.AZUREAD_TENANT_ID || "",
     }),
     KeycloakProvider({
-      clientId: env.KEYCLOAK_CLIENT_ID ?? '',
-      clientSecret: env.KEYCLOAK_CLIENT_SECRET ?? '',
-      issuer: env.KEYCLOAK_ISSUER ?? '',
+      clientId: env.KEYCLOAK_CLIENT_ID ?? "",
+      clientSecret: env.KEYCLOAK_CLIENT_SECRET ?? "",
+      issuer: env.KEYCLOAK_ISSUER ?? "",
     }),
   ],
   callbacks: {
@@ -148,15 +148,13 @@ export const authOptions = {
       };
     },
     async session({ session, token }) {
-      // @ts-expect-error
       session.user.id = token?.id;
-      // @ts-expect-error
+
       session.user = token.profile;
 
       return session;
     },
     async signIn({ user, account }: any) {
-
       if (!user.email || !user.name || account.type !== "oauth") {
         return false;
       }
@@ -164,7 +162,7 @@ export const authOptions = {
       // check if accounts for this provider / account Id already exists
       const existingUserWithAccount = await prisma.user.findFirst({
         where: {
-          email : user.email
+          email: user.email,
         },
       });
 
@@ -177,7 +175,7 @@ export const authOptions = {
         email: user.email,
         emailVerified: new Date(Date.now()),
         onboardingCompleted: false,
-        identityProvider: 'email',
+        identityProvider: "email",
         identityProviderAccountId: user.id,
       });
       // Default team assignment if env variable is set
@@ -200,7 +198,7 @@ export const authOptions = {
       return true;
     },
   },
-  secret: env.APP_CLIENT_SECRET ?? 'DEFAULT_CLIENT_SECRET',
+  secret: env.APP_CLIENT_SECRET ?? "DEFAULT_CLIENT_SECRET",
   pages: {
     signIn: "/auth/login",
     signOut: "/auth/logout",
