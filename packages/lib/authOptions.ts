@@ -1,15 +1,12 @@
-import type { IdentityProvider } from "@prisma/client";
-import type { NextAuthOptions } from "next-auth";
+
 import AzureAD from "next-auth/providers/azure-ad";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import KeycloakProvider, { KeycloakProfile } from "next-auth/providers/keycloak";
+import KeycloakProvider from "next-auth/providers/keycloak";
 import { prisma } from "@formbricks/database";
 
-import { createAccount } from "./account/service";
 import { verifyPassword } from "./auth/util";
-import { EMAIL_VERIFICATION_DISABLED } from "./constants";
 import { env } from "./env.mjs";
 import { verifyToken } from "./jwt";
 import { createMembership } from "./membership/service";
@@ -17,7 +14,7 @@ import { createProduct } from "./product/service";
 import { createTeam, getTeam } from "./team/service";
 import { createUser, getUserByEmail, updateUser } from "./user/service";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -164,7 +161,6 @@ export const authOptions: NextAuthOptions = {
         return false;
       }
 
-      const provider = account.provider;
       // check if accounts for this provider / account Id already exists
       const existingUserWithAccount = await prisma.user.findFirst({
         where: {
