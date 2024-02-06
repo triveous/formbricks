@@ -132,7 +132,10 @@
         "TERMS_URL",
         "VERCEL",
         "VERCEL_URL",
-        "WEBAPP_URL"
+        "WEBAPP_URL",
+        "KEYCLOAK_CLIENT_ID",
+        "KEYCLOAK_CLIENT_SECRET",
+        "KEYCLOAK_ISSUER"
       ]
     },
     "build:dev": {
