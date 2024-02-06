@@ -129,9 +129,9 @@ export const authOptions = {
       tenantId: env.AZUREAD_TENANT_ID || "",
     }),
     KeycloakProvider({
-      clientId: env.KEYCLOAK_CLIENT_ID ?? 'formbricks',
-      clientSecret: env.KEYCLOAK_CLIENT_SECRET ?? 'tItj2vr58wq7n8oeBUus9kubPuMS1XDm',
-      issuer: env.KEYCLOAK_ISSUER ?? 'https://13.234.186.121/kc/realms/midas',
+      clientId: env.KEYCLOAK_CLIENT_ID ?? '',
+      clientSecret: env.KEYCLOAK_CLIENT_SECRET ?? '',
+      issuer: env.KEYCLOAK_ISSUER ?? '',
     }),
   ],
   callbacks: {

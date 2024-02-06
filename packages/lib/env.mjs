@@ -73,6 +73,9 @@ export const env = createEnv({
     DEFAULT_TEAM_ROLE: z.enum(["owner", "admin", "editor", "developer", "viewer"]).optional(),
     ONBOARDING_DISABLED: z.string().optional(),
     ENTERPRISE_LICENSE_KEY: z.string().optional(),
+    KEYCLOAK_CLIENT_ID: z.string().optional(),
+    KEYCLOAK_CLIENT_SECRET: z.string().optional(),
+    KEYCLOAK_ISSUER: z.string().optional(),
   },
 
   /*
