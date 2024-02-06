@@ -37,8 +37,7 @@ export const SigninForm = ({
   azureOAuthEnabled: boolean;
 }) => {
   const searchParams = useSearchParams();
-  const emailRef = useRef<HTMLInputElement>(null);
-
+  
   const formMethods = useForm<TSigninFormState>();
 
   const onSubmit: SubmitHandler<TSigninFormState> = async (data) => {
