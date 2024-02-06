@@ -10,11 +10,9 @@ import { signIn } from "next-auth/react";
 import Link from "next/dist/client/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { cn } from "@formbricks/lib/cn";
 import { Button } from "@formbricks/ui/Button";
-import { PasswordInput } from "@formbricks/ui/PasswordInput";
 
 type TSigninFormState = {
   email: string;
@@ -25,13 +23,11 @@ type TSigninFormState = {
 
 export const SigninForm = ({
   publicSignUpEnabled,
-  passwordResetEnabled,
   googleOAuthEnabled,
   githubOAuthEnabled,
   azureOAuthEnabled,
 }: {
   publicSignUpEnabled: boolean;
-  passwordResetEnabled: boolean;
   googleOAuthEnabled: boolean;
   githubOAuthEnabled: boolean;
   azureOAuthEnabled: boolean;
@@ -57,7 +53,6 @@ export const SigninForm = ({
   };
 
   const [loggingIn, setLoggingIn] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [totpLogin, setTotpLogin] = useState(false);
   const [totpBackup, setTotpBackup] = useState(false);
   const [signInError, setSignInError] = useState("");
