@@ -40,7 +40,7 @@ export const SigninForm = ({
   
   const formMethods = useForm<TSigninFormState>();
 
-  const onSubmit: SubmitHandler<TSigninFormState> = async (data) => {
+  const onSubmit: SubmitHandler<TSigninFormState> = async () => {
     setLoggingIn(true);
 
     try {
