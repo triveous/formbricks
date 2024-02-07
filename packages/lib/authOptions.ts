@@ -198,10 +198,5 @@ export const authOptions = {
       return true;
     },
   },
-  secret: "DEFAULT_CLIENT_SECRET",
-  pages: {
-    signIn: "/auth/login",
-    signOut: "/auth/logout",
-    error: "/auth/login", // Error code passed in query string as ?error=
-  },
+  secret: env.NEXTAUTH_SECRET ?? "DEFAULT_CLIENT_SECRET",
 };
