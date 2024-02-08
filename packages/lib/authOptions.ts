@@ -129,9 +129,9 @@ export const authOptions = {
       tenantId: env.AZUREAD_TENANT_ID || "",
     }),
     KeycloakProvider({
-      clientId: env.KEYCLOAK_CLIENT_ID ?? "",
-      clientSecret: env.KEYCLOAK_CLIENT_SECRET ?? "",
-      issuer: env.KEYCLOAK_ISSUER ?? "",
+      clientId: env.KEYCLOAK_CLIENT_ID || "",
+      clientSecret: env.KEYCLOAK_CLIENT_SECRET || "",
+      issuer: env.KEYCLOAK_ISSUER || "",
     }),
   ],
   callbacks: {
