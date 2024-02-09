@@ -6,7 +6,7 @@ import { GoogleButton } from "@/app/(auth)/auth/components/GoogleButton";
 import TwoFactor from "@/app/(auth)/auth/login/components/TwoFactor";
 import TwoFactorBackup from "@/app/(auth)/auth/login/components/TwoFactorBackup";
 import { XCircleIcon } from "@heroicons/react/24/solid";
-import { signIn } from "next-auth/react";
+import { SessionProvider, signIn } from "next-auth/react";
 import Link from "next/dist/client/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -90,16 +90,16 @@ export const SigninForm = ({
 
     return null;
   }, [totpBackup, totpLogin]);
-
   return (
-    <FormProvider {...formMethods}>
-      <div className="text-center">
-        <h1 className="mb-4 text-slate-700">{formLabel}</h1>
-        <div className="space-y-2">
-          <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-2">
-            {TwoFactorComponent}
+    <SessionProvider basePath="/form/api/auth">
+      <FormProvider {...formMethods}>
+        <div className="text-center">
+          <h1 className="mb-4 text-slate-700">{formLabel}</h1>
+          <div className="space-y-2">
+            <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-2">
+              {TwoFactorComponent}
 
-            {/* {false && (
+              {/* {false && (
               <div className={cn(totpLogin && "hidden")}>
                 <div className="mb-2 transition-all duration-500 ease-in-out">
                   <label htmlFor="email" className="sr-only">
@@ -154,102 +154,103 @@ export const SigninForm = ({
                 )}
               </div>
             )} */}
-            <Button
-              onClick={() => {
-                if (formRef.current) {
-                  formRef.current.requestSubmit();
-                }
-              }}
-              variant="darkCTA"
-              className="w-full justify-center"
-              loading={loggingIn}>
-              {totpLogin ? "Submit" : "Login with Email"}
-            </Button>
-          </form>
+              <Button
+                onClick={() => {
+                  if (formRef.current) {
+                    formRef.current.requestSubmit();
+                  }
+                }}
+                variant="darkCTA"
+                className="w-full justify-center"
+                loading={loggingIn}>
+                {totpLogin ? "Submit" : "Login with Email"}
+              </Button>
+            </form>
 
-          {googleOAuthEnabled && !totpLogin && (
-            <>
-              <GoogleButton inviteUrl={callbackUrl} />
-            </>
-          )}
+            {googleOAuthEnabled && !totpLogin && (
+              <>
+                <GoogleButton inviteUrl={callbackUrl} />
+              </>
+            )}
 
-          {githubOAuthEnabled && !totpLogin && (
-            <>
-              <GithubButton inviteUrl={callbackUrl} />
-            </>
-          )}
+            {githubOAuthEnabled && !totpLogin && (
+              <>
+                <GithubButton inviteUrl={callbackUrl} />
+              </>
+            )}
 
-          {azureOAuthEnabled && !totpLogin && (
-            <>
-              <AzureButton inviteUrl={callbackUrl} />
-            </>
+            {azureOAuthEnabled && !totpLogin && (
+              <>
+                <AzureButton inviteUrl={callbackUrl} />
+              </>
+            )}
+          </div>
+
+          {false && publicSignUpEnabled && !totpLogin && (
+            <div className="mt-9 text-center text-xs ">
+              <span className="leading-5 text-slate-500">New to Formbricks?</span>
+              <br />
+              <Link
+                href={callbackUrl ? `/auth/signup?inviteToken=${inviteToken}` : "/auth/signup"}
+                className="font-semibold text-slate-600 underline hover:text-slate-700">
+                Create an account
+              </Link>
+            </div>
           )}
         </div>
 
-        {false && publicSignUpEnabled && !totpLogin && (
-          <div className="mt-9 text-center text-xs ">
-            <span className="leading-5 text-slate-500">New to Formbricks?</span>
+        {totpLogin && !totpBackup && (
+          <div className="mt-9 text-center text-xs">
+            <span className="leading-5 text-slate-500">Lost Access?</span>
             <br />
-            <Link
-              href={callbackUrl ? `/auth/signup?inviteToken=${inviteToken}` : "/auth/signup"}
-              className="font-semibold text-slate-600 underline hover:text-slate-700">
-              Create an account
-            </Link>
+            <div className="flex flex-col">
+              <button
+                className="font-semibold text-slate-600 underline hover:text-slate-700"
+                onClick={() => {
+                  setTotpBackup(true);
+                }}>
+                Use a backup code
+              </button>
+
+              <button
+                className="mt-4 font-semibold text-slate-600 underline hover:text-slate-700"
+                onClick={() => {
+                  setTotpLogin(false);
+                }}>
+                Go Back
+              </button>
+            </div>
           </div>
         )}
-      </div>
 
-      {totpLogin && !totpBackup && (
-        <div className="mt-9 text-center text-xs">
-          <span className="leading-5 text-slate-500">Lost Access?</span>
-          <br />
-          <div className="flex flex-col">
+        {totpBackup && (
+          <div className="mt-9 text-center text-xs">
             <button
               className="font-semibold text-slate-600 underline hover:text-slate-700"
               onClick={() => {
-                setTotpBackup(true);
-              }}>
-              Use a backup code
-            </button>
-
-            <button
-              className="mt-4 font-semibold text-slate-600 underline hover:text-slate-700"
-              onClick={() => {
-                setTotpLogin(false);
+                setTotpBackup(false);
               }}>
               Go Back
             </button>
           </div>
-        </div>
-      )}
+        )}
 
-      {totpBackup && (
-        <div className="mt-9 text-center text-xs">
-          <button
-            className="font-semibold text-slate-600 underline hover:text-slate-700"
-            onClick={() => {
-              setTotpBackup(false);
-            }}>
-            Go Back
-          </button>
-        </div>
-      )}
-
-      {signInError && (
-        <div className="absolute top-10 rounded-md bg-red-50 p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
-            </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-medium text-red-800">An error occurred when logging you in</h3>
-              <div className="mt-2 text-sm text-red-700">
-                <p className="space-y-1 whitespace-pre-wrap">{signInError}</p>
+        {signInError && (
+          <div className="absolute top-10 rounded-md bg-red-50 p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">An error occurred when logging you in</h3>
+                <div className="mt-2 text-sm text-red-700">
+                  <p className="space-y-1 whitespace-pre-wrap">{signInError}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </FormProvider>
+        )}
+      </FormProvider>
+    </SessionProvider>
   );
 };
