@@ -198,5 +198,16 @@ export const authOptions = {
       return true;
     },
   },
+  logger: {
+    error(code: any, metadata: any) {
+      console.log(code, metadata);
+    },
+    warn(code: any) {
+      console.log(code);
+    },
+    debug(code: any, metadata: any) {
+      console.log(code, metadata);
+    },
+  },
   secret: env.NEXTAUTH_SECRET ?? "DEFAULT_CLIENT_SECRET",
 };
