@@ -12,9 +12,9 @@ import { createUser, getUserByEmail } from "./user/service";
 export const authOptions: NextAuthOptions = {
   providers: [
     KeycloakProvider({
-      clientId: "formbricks",
-      clientSecret: "BzFq0b03aDlPMFBbkNVGy8qKluDz4Qbm",
-      issuer: "https://3.109.154.173/kc/realms/midas",
+      clientId: env.KEYCLOAK_CLIENT_ID ?? "formbricks",
+      clientSecret: env.KEYCLOAK_CLIENT_SECRET ?? "BzFq0b03aDlPMFBbkNVGy8qKluDz4Qbm",
+      issuer: env.KEYCLOAK_ISSUER ?? "https://3.109.154.173/kc/realms/midas",
     }),
   ],
   callbacks: {
