@@ -11,6 +11,7 @@ function getHostname(url) {
 }
 
 const nextConfig = {
+  basePath: '/form',
   assetPrefix: process.env.ASSET_PREFIX_URL || undefined,
   output: "standalone",
   experimental: {
