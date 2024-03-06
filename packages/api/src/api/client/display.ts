@@ -16,7 +16,12 @@ export class DisplayAPI {
   async create(
     displayInput: Omit<TDisplayCreateInput, "environmentId">
   ): Promise<Result<{ id: string }, NetworkError | Error>> {
-    return makeRequest(this.apiHost, `/api/v1/client/${this.environmentId}/displays`, "POST", displayInput);
+    return makeRequest(
+      this.apiHost,
+      `/form/api/v1/client/${this.environmentId}/displays`,
+      "POST",
+      displayInput
+    );
   }
 
   async update(

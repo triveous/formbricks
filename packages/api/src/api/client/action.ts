@@ -14,6 +14,11 @@ export class ActionAPI {
   }
 
   async create(actionInput: Omit<TActionInput, "environmentId">): Promise<Result<{}, NetworkError | Error>> {
-    return makeRequest(this.apiHost, `/api/v1/client/${this.environmentId}/actions`, "POST", actionInput);
+    return makeRequest(
+      this.apiHost,
+      `/form/api/v1/client/${this.environmentId}/actions`,
+      "POST",
+      actionInput
+    );
   }
 }
