@@ -23,7 +23,7 @@ export class PeopleAPI {
   async update(userId: string, personInput: TPersonUpdateInput): Promise<Result<{}, NetworkError | Error>> {
     return makeRequest(
       this.apiHost,
-      `/api/v1/client/${this.environmentId}/people/${userId}`,
+      `/form/api/v1/client/${this.environmentId}/people/${userId}`,
       "POST",
       personInput
     );

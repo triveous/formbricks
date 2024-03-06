@@ -18,7 +18,6 @@ export class ResponseAPI {
   async create(
     responseInput: Omit<TResponseInput, "environmentId">
   ): Promise<Result<{ id: string }, NetworkError | Error>> {
-    console.log("----we are here-----");
     return makeRequest(
       this.apiHost,
       `/form/api/v1/client/${this.environmentId}/responses`,
