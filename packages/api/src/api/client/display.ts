@@ -30,7 +30,7 @@ export class DisplayAPI {
   ): Promise<Result<{}, NetworkError | Error>> {
     return makeRequest(
       this.apiHost,
-      `/api/v1/client/${this.environmentId}/displays/${displayId}`,
+      `/form/api/v1/client/${this.environmentId}/displays/${displayId}`,
       "PUT",
       displayInput
     );
