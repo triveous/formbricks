@@ -14,7 +14,7 @@ export class PeopleAPI {
   }
 
   async create(userId: string): Promise<Result<{}, NetworkError | Error>> {
-    return makeRequest(this.apiHost, `/api/v1/client/${this.environmentId}/people`, "POST", {
+    return makeRequest(this.apiHost, `/form/api/v1/client/${this.environmentId}/people`, "POST", {
       environmentId: this.environmentId,
       userId,
     });

@@ -18,7 +18,13 @@ export class ResponseAPI {
   async create(
     responseInput: Omit<TResponseInput, "environmentId">
   ): Promise<Result<{ id: string }, NetworkError | Error>> {
-    return makeRequest(this.apiHost, `/api/v1/client/${this.environmentId}/responses`, "POST", responseInput);
+    console.log("----we are here-----");
+    return makeRequest(
+      this.apiHost,
+      `/form/api/v1/client/${this.environmentId}/responses`,
+      "POST",
+      responseInput
+    );
   }
 
   async update({
@@ -27,10 +33,15 @@ export class ResponseAPI {
     data,
     ttc,
   }: TResponseUpdateInputWithResponseId): Promise<Result<{}, NetworkError | Error>> {
-    return makeRequest(this.apiHost, `/api/v1/client/${this.environmentId}/responses/${responseId}`, "PUT", {
-      finished,
-      data,
-      ttc,
-    });
+    return makeRequest(
+      this.apiHost,
+      `/form/api/v1/client/${this.environmentId}/responses/${responseId}`,
+      "PUT",
+      {
+        finished,
+        data,
+        ttc,
+      }
+    );
   }
 }
