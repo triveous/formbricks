@@ -94,6 +94,9 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_API_KEY: z.string().optional(),
     NEXT_PUBLIC_POSTHOG_API_HOST: z.string().optional(),
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
+    KEYCLOAK_CLIENT_ID: z.string().optional(),
+    KEYCLOAK_CLIENT_SECRET: z.string().optional(),
+    KEYCLOAK_ISSUER: z.string().optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -159,5 +162,8 @@ export const env = createEnv({
     DEFAULT_TEAM_ROLE: process.env.DEFAULT_TEAM_ROLE,
     ONBOARDING_DISABLED: process.env.ONBOARDING_DISABLED,
     ENTERPRISE_LICENSE_KEY: process.env.ENTERPRISE_LICENSE_KEY,
+    KEYCLOAK_CLIENT_ID: process.env.KEYCLOAK_CLIENT_ID,
+    KEYCLOAK_CLIENT_SECRET: process.env.KEYCLOAK_CLIENT_SECRET,
+    KEYCLOAK_ISSUER: process.env.KEYCLOAK_ISSUER,
   },
 });
